@@ -12,17 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random greeting to the page.
- */
-function addRandomGreeting() {
-    const greetings =
-        ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
-  
-    // Pick a random greeting.
-    const greeting = greetings[Math.floor(Math.random() * greetings.length)];
-  
-    // Add it to the page.
-    const greetingContainer = document.getElementById('greeting-container');
-    greetingContainer.innerText = greeting;
-  }
+
+function addText(msg){
+    let e = document.createElement('p');
+    e.innerText = msg;
+    document.getElementById("feed-container").appendChild(e);
+}
+
+// delete every text on chat wall and rewrite
+async function loadPosts(){
+    let response = await fetch('/record')
+    const textResponse = await response.json();
+    for(let i = textResponse.length - 1; i >= 0; i--) {
+        let username = textResponse[i]["username"]
+        let distance = textResponse[i]["distance"]
+        let time = textResponse[i]["time"]
+        let formattedText = `${username} ran ${distance} in ${time}`
+        addText(formattedText);
+    }
+    
+}
+
+loadPosts()
