@@ -14,27 +14,40 @@
 
 
 // Create a p tag that will be used
+let card_counter = 3;
+
 function addCard(username, distance, time){
+    // Create divs for each location
+    let div_carousel = document.createElement('div');
     let div_col = document.createElement('div');
     let div_card = document.createElement('div');
+
+    // Set class value for each div
+    div_carousel.setAttribute("class", "carousel-item");
 
     div_col.setAttribute("class", "col-md");
 
     div_card.setAttribute("class", "card mx-auto");
     div_card.setAttribute("style", "width: 18rem;");
     
+    // Create the card HTML format
     div_card.innerHTML = "<img class='card-img-top' src='resources/post_picture_3.jpeg' alt='Fitness Image' style='width: 286px; height: 180px;'>";
-    div_card.innerHTML += `<div class='card-body'> <h5 class='card-title'>${username}</h5> <p class='card-text-2' id='running'> Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident odio ut perspiciatis aut, soluta obcaecati nesciunt odit vel nam commodi ducimus alias, inventore dolores, ipsum exercitationem minima voluptatem incidunt sit. </p></div>`;
+    div_card.innerHTML += `<div class='card-body'> <h5 class='card-title'>${username}</h5> <p class='card-text-${card_counter}' id='running'> Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident odio ut perspiciatis aut, soluta obcaecati nesciunt odit vel nam commodi ducimus alias, inventore dolores, ipsum exercitationem minima voluptatem incidunt sit. </p></div>`;
     div_card.innerHTML += "<ul class='list-group list-group-flush'>";
     div_card.innerHTML +=  `<li class='list-group-item'>Distance: ${distance}</li>`;
     div_card.innerHTML +=  `<li class='list-group-item'>Average BPM:</li>`;
     div_card.innerHTML +=  `<li class='list-group-item'>Time: ${time}</li>`;
     div_card.innerHTML += "</ul>";
-    div_card.innerHTML += "<div class='card-body'> <a href='#' class='btn btn-primary' onclick='BionicReader('card-text-2')'>Bionic Reading</a> </div>";
+    div_card.innerHTML += `<div class='card-body'> <a href='#' class='btn btn-primary' onclick="BionicReader('card-text-${card_counter}')">Bionic Reading</a> </div>`;
 
+    // console.log(div_card.innerHTML);
 
-    div_col.appendChild(div_card);
-    document.getElementById("test-feed-0").appendChild(div_col);
+    // div_col.appendChild(div_card); // Append the card into div col
+    // document.getElementById("test-feed-0").appendChild(div_col); //Append into test-feed-0 which is the row for the cards
+
+    div_carousel.appendChild(div_card);
+    document.getElementsByClassName("carousel-inner")[0].appendChild(div_carousel);
+    card_counter += 1;
 }
 
 // This function gets the data from the database
