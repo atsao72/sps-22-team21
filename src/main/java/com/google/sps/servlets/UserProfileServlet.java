@@ -24,17 +24,22 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import java.util.*;
-@WebServlet("/record")
-public class RecordPostServlet extends HttpServlet {
+import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
+@WebServlet("/profiles/*")
+public class UserProfileServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String[] pathInfo = request.getPathInfo().split("/");
+    String uid = pathInfo[1]; // {id}
+    
     Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
-    // Retrieve the last 100 posts from the datastore, ordered by timestamp.
+    // Retrieve posts from that user.
     Query<Entity> query =
         Query.newEntityQueryBuilder()
             .setKind("RunnerPost")
             .setOrderBy(StructuredQuery.OrderBy.desc("timestamp"))
+            .setFilter(PropertyFilter.eq("UID", uid))
             .setLimit(100)
             .build();
     QueryResults<Entity> results = datastore.run(query);
@@ -51,57 +56,7 @@ public class RecordPostServlet extends HttpServlet {
     response.getWriter().println(json);
 
   }
-  @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    // String username = request.getParameter("uname");
-    GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
-            .setAudience(Collections.singletonList("126364799474-iuabk1c066p90m76da18q2fc2jjkikij.apps.googleusercontent.com"))
-            .build();
-        
-    // (Receive idTokenString by HTTPS POST)
-    GoogleIdToken idToken = null;
-    String idTokenString = request.getParameter("token");
-    try {
-        idToken = verifier.verify(idTokenString);
-    } catch (Exception e) {
-        
-    }
-    
-    if (idToken != null) {
-        Payload payload = idToken.getPayload();
-
-        // Print user identifier
-        String userId = payload.getSubject();
-        System.out.println("User ID: " + userId);
-        String username = (String) payload.get("name");
-        double distance = Float.valueOf(request.getParameter("distance"));
-        double time = Float.valueOf(request.getParameter("time"));
-        long avgBPM = Integer.valueOf(request.getParameter("avgBPM"));
-        String description = request.getParameter("description");
-        Timestamp timestamp = Timestamp.now();
-    
-        // store a message to the database.
-        Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
-        KeyFactory keyFactory = datastore.newKeyFactory().setKind("RunnerPost");
-        FullEntity<IncompleteKey> post =
-            Entity.newBuilder(keyFactory.newKey())
-                .set("UID", userId)
-                .set("username", username)
-                .set("distance", distance)
-                .set("time", time)
-                .set("avgBPM",avgBPM)
-                .set("description",description)
-                .set("timestamp", timestamp)
-                .build();
-        datastore.put(post);
-    } else {
-        System.out.println("Invalid ID token.");
-    }
-
-    // redirect to the main page
-    response.sendRedirect("https://summer22-sps-21.appspot.com/");
-  }
 
   private String convertStrToJson(ArrayList<RunnerPost> messages) {
     Gson gson = new Gson();

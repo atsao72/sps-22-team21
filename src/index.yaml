@@ -1,0 +1,6 @@
+indexes:
+  - kind: RunnerPost
+    properties:
+    - name: UID
+    - name: timestamp
+      direction: desc

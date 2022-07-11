@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <title>Team project</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
   </head>
   <body>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="login.js"></script>
+
+    <div id="buttonDiv"></div> 
+
     <div id="content" >
       <h1>Post Form</h1>
-      <form action = "/record" method = "post">
+      <!-- <form action = "/record" method = "post">
         <label for="uname">Username:</label><br>
         <input type="text" id="uname" name="uname" required><br>
         <label for="distance">Running distance(km):</label><br>
@@ -21,8 +25,18 @@
         <label for="description">Description (optional):</label><br>
         <input type="text" id="description" name="description"><br>
         <input type="submit" value="Post">
-      </form>
+      </form> -->
 
+        <label for="distance">Running distance(km):</label><br>
+        <input type="text" id="distance" name="distance" required><br>
+        <label for="time">Duration(minuite:second):</label><br>
+        <input type="text" id="time" name="time" required><br>
+        <label for="avgBPM">Average BPM:</label><br>
+        <input type="text" id="avgBPM" name="avgBPM" required><br>
+        <label for="description">Description (optional):</label><br>
+        <input type="text" id="description" name="description"><br>
+
+        <button onclick="post();">X</button>
     </div>
   </body>
 </html>

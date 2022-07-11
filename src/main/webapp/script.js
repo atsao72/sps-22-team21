@@ -27,10 +27,19 @@ async function loadPosts(){
         let username = textResponse[i]["username"]
         let distance = textResponse[i]["distance"]
         let time = textResponse[i]["time"]
-        let formattedText = `${username} ran ${distance} in ${time}`
+        let description = textResponse[i]["description"]
+        let formattedText = `${username} ran ${distance} in ${time} with message: ${description}`
         addText(formattedText);
     }
     
 }
-
+async function submitPost(msg) {
+    console.log(msg);
+    await fetch('/chat?' + new URLSearchParams({
+        text: msg,
+    }), {method : "POST"})
+    //add recent text to the wall
+    addText(msg);
+    
+}
 loadPosts()
