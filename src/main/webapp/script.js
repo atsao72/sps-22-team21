@@ -13,13 +13,31 @@
 // limitations under the License.
 
 
-function addText(msg){
-    let e = document.createElement('p');
-    e.innerText = msg;
-    document.getElementById("feed-container").appendChild(e);
+// Create a p tag that will be used
+function addCard(username, distance, time){
+    let div_col = document.createElement('div');
+    let div_card = document.createElement('div');
+
+    div_col.setAttribute("class", "col-md");
+
+    div_card.setAttribute("class", "card mx-auto");
+    div_card.setAttribute("style", "width: 18rem;");
+    
+    div_card.innerHTML = "<img class='card-img-top' src='resources/post_picture_3.jpeg' alt='Fitness Image' style='width: 286px; height: 180px;'>";
+    div_card.innerHTML += `<div class='card-body'> <h5 class='card-title'>${username}</h5> <p class='card-text-2' id='running'> Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident odio ut perspiciatis aut, soluta obcaecati nesciunt odit vel nam commodi ducimus alias, inventore dolores, ipsum exercitationem minima voluptatem incidunt sit. </p></div>`;
+    div_card.innerHTML += "<ul class='list-group list-group-flush'>";
+    div_card.innerHTML +=  `<li class='list-group-item'>Distance: ${distance}</li>`;
+    div_card.innerHTML +=  `<li class='list-group-item'>Average BPM:</li>`;
+    div_card.innerHTML +=  `<li class='list-group-item'>Time: ${time}</li>`;
+    div_card.innerHTML += "</ul>";
+    div_card.innerHTML += "<div class='card-body'> <a href='#' class='btn btn-primary' onclick='BionicReader('card-text-2')'>Bionic Reading</a> </div>";
+
+
+    div_col.appendChild(div_card);
+    document.getElementById("test-feed-0").appendChild(div_col);
 }
 
-// delete every text on chat wall and rewrite
+// This function gets the data from the database
 async function loadPosts(){
     let response = await fetch('/record')
     const textResponse = await response.json();
@@ -27,10 +45,73 @@ async function loadPosts(){
         let username = textResponse[i]["username"]
         let distance = textResponse[i]["distance"]
         let time = textResponse[i]["time"]
-        let formattedText = `${username} ran ${distance} in ${time}`
-        addText(formattedText);
+        addCard(username, distance, time);
     }
     
 }
 
-loadPosts()
+// Bionic Reader Function
+function BionicReader(className){
+    var paragraphList = document.getElementsByClassName(className); 
+    
+    for (var i = 0; i <paragraphList.length; i++){
+        var p=paragraphList[i];
+      /*
+        if (p._bionic_processed){
+            continue;
+        }*/
+        p._bionic_processed = true;
+        var nodes= p.childNodes; 
+        for(var j = 0; j < nodes.length; j++){
+            var node = nodes[j];
+            if (node.nodeType == 3){
+                console.log('works');
+                var span = document.createElement("span");
+                var text = node.nodeValue;
+                var html = "";
+                var words = text.split(" ");
+                for (var k = 0; k < words.length; k++){
+                    var word = words[k];
+                    var boldStr = "";
+                    var normalStr = word;
+                    if (word.trim().length > 0){
+                        if(word.length < 3){
+                            boldStr = word;
+                            normalStr = ""; 
+                        } 
+                        else {
+                            var boldLen = Math.floor(word.length * 0.5);
+                            if (boldLen >= word.length){
+                            boldLen = word.length;
+                        }
+                            boldStr = word.substring(0, boldLen);
+                            normalStr = word.substring(boldLen);
+                        }   
+                    }
+                    if (k < words.length - 1) {
+                        normalStr += " ";
+                    }
+                    if (boldStr.length > 0) {
+                        var b = document.createElement("b");
+                        b.innerText = boldStr;
+                        span.appendChild(b);
+                    }
+                    if (normalStr.length > 0) {
+                        var textNode = document.createTextNode(normalStr);
+                        span.appendChild(textNode);
+                    }
+                }
+                p.replaceChild(span, node);
+                
+            }
+        }
+    }
+}
+
+function testFunction(){
+    element = document.getElementsByClassName("card-text-1");
+    console.log(element);
+    console.log(element[0])
+}
+
+// loadPosts()
