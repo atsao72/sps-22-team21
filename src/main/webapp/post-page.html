@@ -5,24 +5,68 @@
     <title>Team project</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+
+    <!-- Bootstrap Requirement -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   </head>
   <body>
+      <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+        <a class="navbar-brand" href="index.html">Fitness Gram Pacer Test</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="index.html">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="post-page.html">Add Post</a>
+            <a class="nav-item nav-link" href="#">Profile</a>
+            <a class="nav-item nav-link" href="about-us.html">About Us</a>
+            <a class="nav-item nav-link" href="BionicReader.html">Bionic Reading Playground</a>
+          </div>
+        </div>
+      </nav>
+
     <div id="content" >
       <h1>Post Form</h1>
       <form action = "/record" method = "post">
-        <label for="uname">Username:</label><br>
-        <input type="text" id="uname" name="uname" required><br>
-        <label for="distance">Running distance(km):</label><br>
-        <input type="text" id="distance" name="distance" required><br>
-        <label for="time">Duration(minuite:second):</label><br>
-        <input type="text" id="time" name="time" required><br>
-        <label for="avgBPM">Average BPM:</label><br>
-        <input type="text" id="avgBPM" name="avgBPM" required><br>
-        <label for="description">Description (optional):</label><br>
-        <input type="text" id="description" name="description"><br>
-        <input type="submit" value="Post">
+        
+        <div class="form-group">
+            <label for="uname">Username:</label><br>
+            <input type="text" id="uname" name="uname" required>
+        </div>
+
+        <div class="form-group">
+            <label for="distance">Running distance(km):</label>
+            <input type="text" id="distance" name="distance" required>
+        </div>
+
+        <div class="form-group">
+            <label for="time">Duration(minuite:second):</label>
+            <input type="text" id="time" name="time" required>
+        </div>
+
+
+        <div class="form-group">
+            <label for="avgBPM">Average BPM:</label>
+            <input type="text" id="avgBPM" name="avgBPM" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description (optional):</label>
+            <input type="text" id="description" name="description">
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Submit Form</button>
+        </div>
       </form>
 
     </div>
+
+    <!-- Bootstrap Javascript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </body>
 </html>
