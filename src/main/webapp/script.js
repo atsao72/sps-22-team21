@@ -12,6 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// This is the variable that will get all the class names of the checkbox
+let checkboxName = "";
+
+// document.addEventListener('DOMContentLoaded', function (){
+//     var checkbox = document.querySelector('input[type="checkbox"]');
+
+//     checkbox.addEventListener('change', function (){
+//         if (checkbox.checked){
+//             console.log('Checked');
+//             BionicReader();
+//         }
+//         else{
+//             console.log('Not Checked');
+//             normalText();
+//         }
+
+//     });
+// });
+
+
 
 // Create a p tag that will be used
 let card_counter = 3;
@@ -28,17 +48,17 @@ function addCard(username, distance, time){
     div_col.setAttribute("class", "col-md");
 
     div_card.setAttribute("class", "card mx-auto");
-    div_card.setAttribute("style", "width: 18rem;");
+    div_card.setAttribute("style", "width: 26rem;");
     
     // Create the card HTML format
-    div_card.innerHTML = "<img class='card-img-top' src='resources/post_picture_3.jpeg' alt='Fitness Image' style='width: 286px; height: 180px;'>";
+    div_card.innerHTML = `<img class="card-img-top" src="resources/post_picture_3.jpeg" alt="Fitness Image">`;
     div_card.innerHTML += `<div class='card-body'> <h5 class='card-title'>${username}</h5> <p class='card-text-${card_counter}' id='running'> Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident odio ut perspiciatis aut, soluta obcaecati nesciunt odit vel nam commodi ducimus alias, inventore dolores, ipsum exercitationem minima voluptatem incidunt sit. </p></div>`;
     div_card.innerHTML += "<ul class='list-group list-group-flush'>";
     div_card.innerHTML +=  `<li class='list-group-item'>Distance: ${distance}</li>`;
     div_card.innerHTML +=  `<li class='list-group-item'>Average BPM:</li>`;
     div_card.innerHTML +=  `<li class='list-group-item'>Time: ${time}</li>`;
     div_card.innerHTML += "</ul>";
-    div_card.innerHTML += `<div class='card-body'> <a href='#' class='btn btn-primary' onclick="BionicReader('card-text-${card_counter}')">Bionic Reading</a> </div>`;
+    div_card.innerHTML += `<div class='card-body'> <label class="switch"> <input type="checkbox" id="cb-card-text-${card_counter}" onclick="switchBionic('card-text-${card_counter}', 'cb-card-text-${card_counter}');"> <div class="slider round"> </div> </label> </div>`;
 
     // console.log(div_card.innerHTML);
 
@@ -63,7 +83,17 @@ async function loadPosts(){
     
 }
 
-// Bionic Reader Function
+// Bionic Reader Function Section
+function normalText(className){
+    var paragraphList = document.getElementsByClassName(className); // Made changes here from getElementById to getElementByTagName
+    for (var i = 0; i < paragraphList.length; i ++){
+        paragraphList[i].innerHTML = paragraphList[i].innerHTML.replace(/<span>/g, "");
+        paragraphList[i].innerHTML = paragraphList[i].innerHTML.replace(/<\/span>/g, "");
+        paragraphList[i].innerHTML = paragraphList[i].innerHTML.replace(/<b>/g, "");
+        paragraphList[i].innerHTML = paragraphList[i].innerHTML.replace(/<\/b>/g, "");
+    }
+}
+
 function BionicReader(className){
     var paragraphList = document.getElementsByClassName(className); 
     
@@ -118,6 +148,17 @@ function BionicReader(className){
                 
             }
         }
+    }
+}
+
+// This function will be used in every toggle button and will make sure the correct actions are implemented
+function switchBionic(className, idName){
+    let checkbox = document.getElementById(idName);
+    
+    if(checkbox.checked == true){
+        BionicReader(className);
+    } else {
+        normalText(className);
     }
 }
 

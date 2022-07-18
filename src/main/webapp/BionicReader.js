@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function (){
   Removes 'b', and 'span' element from 'p'
 */
 function normalText(){
-    var paragraphList = document.getElementById("p");
+    var paragraphList = document.getElementsByTagName("p"); // Made changes here from getElementById to getElementByTagName
     for (var i = 0; i < paragraphList.length; i ++){
         paragraphList[i].innerHTML = paragraphList[i].innerHTML.replace(/<span>/g, "");
         paragraphList[i].innerHTML = paragraphList[i].innerHTML.replace(/<\/span>/g, "");
