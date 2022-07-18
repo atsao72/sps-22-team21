@@ -7,16 +7,28 @@ document.addEventListener('DOMContentLoaded', function (){
             BionicReader();
         }
         else{
-            console.log('Not Checked')
+            console.log('Not Checked');
+            normalText();
         }
 
     });
 });
 /*
+  Removes 'b', and 'span' element from 'p'
+*/
+function normalText(){
+    var paragraphList = document.getElementById("p");
+    for (var i = 0; i < paragraphList.length; i ++){
+        paragraphList[i].innerHTML = paragraphList[i].innerHTML.replace(/<span>/g, "");
+        paragraphList[i].innerHTML = paragraphList[i].innerHTML.replace(/<\/span>/g, "");
+        paragraphList[i].innerHTML = paragraphList[i].innerHTML.replace(/<b>/g, "");
+        paragraphList[i].innerHTML = paragraphList[i].innerHTML.replace(/<\/b>/g, "");
+    }
+}
+
+/*
 Bionic Reader converter that will bolden the the first three chars of a word string
 */
-
-
 function BionicReader(){
     var paragraphList = document.getElementsByTagName("p"); 
     
