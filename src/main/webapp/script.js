@@ -36,7 +36,7 @@ let checkboxName = "";
 // Create a p tag that will be used
 let card_counter = 3;
 
-function addCard(username, distance, time){
+function addCard(username, distance, time, description){
     // Create divs for each location
     let div_carousel = document.createElement('div');
     let div_col = document.createElement('div');
@@ -52,7 +52,7 @@ function addCard(username, distance, time){
     
     // Create the card HTML format
     div_card.innerHTML = `<img class="card-img-top" src="resources/post_picture_3.jpeg" alt="Fitness Image">`;
-    div_card.innerHTML += `<div class='card-body'> <h5 class='card-title'>${username}</h5> <p class='card-text-${card_counter}' id='running'> Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident odio ut perspiciatis aut, soluta obcaecati nesciunt odit vel nam commodi ducimus alias, inventore dolores, ipsum exercitationem minima voluptatem incidunt sit. </p></div>`;
+    div_card.innerHTML += `<div class='card-body'> <h5 class='card-title'>${username}</h5> <p class='card-text-${card_counter}' id='running'> ${description} </p></div>`;
     div_card.innerHTML += "<ul class='list-group list-group-flush'>";
     div_card.innerHTML +=  `<li class='list-group-item'>Distance: ${distance}</li>`;
     div_card.innerHTML +=  `<li class='list-group-item'>Average BPM:</li>`;
@@ -78,7 +78,8 @@ async function loadPosts(){
         let username = textResponse[i]["username"]
         let distance = textResponse[i]["distance"]
         let time = textResponse[i]["time"]
-        addCard(username, distance, time);
+        let description = textResponse[i]["description"]
+        addCard(username, distance, time, description);
     }
     
 }
