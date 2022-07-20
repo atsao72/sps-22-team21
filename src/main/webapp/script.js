@@ -58,10 +58,11 @@ async function loadPosts(){
         let username = textResponse[i]["username"]
         let distance = textResponse[i]["distance"]
         let time = textResponse[i]["time"]
+        let description = textResponse[i]["description"]
         addCard(username, distance, time);
     }
-    
 }
+
 
 // Bionic Reader Function
 function BionicReader(className){
