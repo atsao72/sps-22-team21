@@ -43,7 +43,7 @@ public class RecordPostServlet extends HttpServlet {
     while (results.hasNext()) {
     Entity entity = results.next();
       posts.add(new RunnerPost(entity.getString("username"), entity.getDouble("distance"),entity.getDouble("time"), 
-      entity.getLong("avgBPM"), entity.getString("description"), entity.getTimestamp("timestamp")));
+      entity.getLong("avgBPM"), entity.getString("description"), entity.getTimestamp("timestamp"),entity.getString("UID")));
     }
 
     String json = convertStrToJson(posts);

@@ -9,14 +9,16 @@ public class RunnerPost {
     private final long avgBPM;
     private final String description;
     private final Timestamp timestamp;
+    private final String UID;
   
-    public RunnerPost(String username, double distance, double time, long avgBPM, String description, Timestamp timestamp) {
+    public RunnerPost(String username, double distance, double time, long avgBPM, String description, Timestamp timestamp,String UID) {
       this.username = username;
       this.distance = distance;
       this.avgBPM = avgBPM;
       this.description = description;
       this.time = time;
       this.timestamp = timestamp;
+      this.UID = UID;
     }
     public String getUsername() {
         return username;
@@ -36,6 +38,9 @@ public class RunnerPost {
     }
     public Timestamp getTimestamp() {
         return timestamp;
+    }
+    public String getUID() {
+        return UID;
     }
 }
 
