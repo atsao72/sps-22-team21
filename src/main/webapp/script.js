@@ -81,7 +81,6 @@ async function loadPosts(){
         let description = textResponse[i]["description"]
         addCard(username, distance, time, description);
     }
-    
 }
 
 // Bionic Reader Function Section
