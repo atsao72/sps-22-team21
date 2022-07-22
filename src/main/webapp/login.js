@@ -17,7 +17,7 @@ google.accounts.id.prompt(); // also display the One Tap dialog
 
 async function post() {
     if (token == 0) {
-        console.log("User need to log in first.")
+        alert("Please Log In first before adding post");
     } else {
         
         let distance = document.getElementById('distance').value

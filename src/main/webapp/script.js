@@ -75,10 +75,10 @@ async function loadPosts(){
     let response = await fetch('/record')
     const textResponse = await response.json();
     for(let i = textResponse.length - 1; i >= 0; i--) {
-        let username = textResponse[i]["username"]
-        let distance = textResponse[i]["distance"]
-        let time = textResponse[i]["time"]
-        let description = textResponse[i]["description"]
+        let username = textResponse[i]["username"];
+        let distance = textResponse[i]["distance"];
+        let time = textResponse[i]["time"];
+        let description = textResponse[i]["description"];
         addCard(username, distance, time, description);
     }
 }
